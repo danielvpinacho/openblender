@@ -1,0 +1,11 @@
+Package: openblender
+Type: Package
+Title: Tool to use openblender.io platform
+Version: 0.1.0
+Author: Daniel V. Pinacho
+Maintainer: Daniel V. Pinacho <danielvpinacho@gmail.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT
+Encoding: UTF-8
+LazyData: true
