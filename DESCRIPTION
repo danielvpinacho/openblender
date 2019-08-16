@@ -1,11 +1,14 @@
 Package: openblender
 Type: Package
-Title: Tool to use openblender.io platform
+Title: Tool to use www.openblender.io service
 Version: 0.1.0
 Author: Daniel V. Pinacho
 Maintainer: Daniel V. Pinacho <danielvpinacho@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: MIT
+Description: You can create datasets, insert observations and obtain them. Go to www.openblender.io and get your parameters.
+Depends:
+  R (>= 3.4.4),
+  httr (>= 1.4.1),
+  jsonlite (>= 1.6)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
