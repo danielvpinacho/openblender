@@ -1,3 +1,2 @@
 # OpenBlender
-R package written specifically to call OpenBlender API services
-Website: https://openblender.io
+R package written specifically to call https://openblender.io API services.
