@@ -1,2 +1,2 @@
 # OpenBlender
-R package written specifically to call https://openblender.io API services.
+R package. Function as an interface to request https://openblender.io API services.
