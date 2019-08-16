@@ -15,6 +15,7 @@ parameters <- list(
   insert_observations = "on",
   dataframe = df
 )
+call()
 response <- openblender::call(action, parameters)
 response
 ############################################################

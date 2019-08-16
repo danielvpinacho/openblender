@@ -14,35 +14,76 @@ dameRespuestaLlamado <<- function(url, data) {
   }
 }
 
-call <- function(action, json_parametros) {
+#'@title Make HTTP request to \href{http://openblender.io}{openblender.io} service
+#'@description Function made to call OpenBlender API services.
+#'@param action Task you're requesting
+#'@param parameters Request options
+#'@return The OpenBlender service response, which depends on the action and parameters provided.
+#'@examples
+#'##CREATE A DATASET
+#'df <- read.csv(file = "/path/to/your/data.csv", header = TRUE, sep = ",")
+#'action <- "API_createDataset"
+#'parameters <- list(
+#'token = "YOUR_TOKEN",
+#'id_user = "YOUR_USER_ID",
+#'name = "dataset name",
+#'descriptipon = "Provide a description here",
+#'visibility = "public",
+#'tags = list("topic", "tag"),
+#'insert_observations = "on",
+#'dataframe = df
+#')
+#'response <- openblender::call(action, parameters)
+#'
+#'##INSERT OBSERVATIONS
+#'df <- read.csv(file = "/path/to/your/data.csv", header = TRUE, sep = ",")
+#'action <- "API_insertObservations"
+#'parameters <- list(
+#'token = "YOUR_TOKEN",
+#'id_user = "YOUR_USER_ID",
+#'id_dataset = "DATASET_ID",
+#'notification = "on",
+#'observations = df
+#')
+#'response <- openblender::call(action, parameters)
+#'
+#'##GET OBSERVATIONS
+#'action <- "API_getObservationsFromDataset"
+#'parameters <- list(
+#'token = "YOUR_TOKEN",
+#'id_user = "YOUR_USER_ID",
+#'id_dataset = "DATASET_ID"
+#')
+#'response <- openblender::call(action, parameters)
+call <- function(action, parameters) {
   respuesta <- tryCatch({
-    if (hasName(json_parametros, "oblender") && json_parametros$oblender == 1) {
+    if (hasName(parameters, "oblender") && parameters$oblender == 1) {
       url <- "http://3.16.237.62:8080/bronce"
     } else {
       url <- "http://52.8.156.139/oro/"
     }
     switch(action,
            API_createDataset = {
-             respuesta <- create_dataset(json_parametros, url)
+             respuesta <- create_dataset(parameters, url)
            },
            API_insertObservations = {
-             respuesta <- insert_observations(json_parametros, url)
+             respuesta <- insert_observations(parameters, url)
            },
            API_getObservationsFromDataset = {
-             respuesta <- get_observations(json_parametros, url)
+             respuesta <- get_observations(parameters, url)
            },
            API_powerModel = {
-             respuesta <- power_model(json_parametros, url)
+             respuesta <- power_model(parameters, url)
            }
            , {
-             data <- list(action = action, json = json_parametros)
+             data <- list(action = action, json = parameters)
              respuesta <- dameRespuestaLlamado(url, data)
             }
            )
     return(respuesta)
   },
   error = function(e) {
-    if (hasName(json_parametros, "oblender") && json_parametros$oblender == 1) {
+    if (hasName(parameters, "oblender") && parameters$oblender == 1) {
       print("err 1")
       print("internal error")
       print(e)

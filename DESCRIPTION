@@ -1,10 +1,10 @@
 Package: openblender
 Type: Package
-Title: Tool to use www.openblender.io service
+Title: Request www.openblender.io API services
 Version: 0.1.0
 Author: Daniel V. Pinacho
 Maintainer: Daniel V. Pinacho <danielvpinacho@gmail.com>
-Description: You can create datasets, insert observations and obtain them. Go to www.openblender.io and get your parameters.
+Description: Interface to make HTTP requests to OpenBlender API services. Go to https://openblender.io for more information.
 Depends:
   R (>= 3.4.4),
   httr (>= 1.4.1),
@@ -12,3 +12,4 @@ Depends:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1
