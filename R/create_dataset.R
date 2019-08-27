@@ -1,4 +1,10 @@
-create_dataset <<- function(json_parametros, url) {
+#'@title Request to the API, depending on the action provided
+#'@description Prepare the creation of a Dataset in 'OpenBlender' API. This function is not used by users.
+#'@param json_parametros Request parameters that contains the dataset structure
+#'@param url Url selected
+#'@return Dataset's id just created, using \link{dameRespuestaLlamado}.
+#'@keywords internal
+create_dataset <- function(json_parametros, url) {
   action <- "API_createDataset"
   if (hasName(json_parametros, "dataframe")) {
     nom_obs <- "dataframe"
@@ -26,7 +32,7 @@ create_dataset <<- function(json_parametros, url) {
     test_call <- FALSE
   }
   if (test_call == 1) {
-    print("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
+    message("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
   }
   respuesta0 <- NULL
   #Creación del dataset
@@ -43,8 +49,8 @@ create_dataset <<- function(json_parametros, url) {
       }
       respuesta0 <- respuesta
       json_particion$id_dataset <- respuesta$id_dataset
-      print(paste("Dataset created succesfully, id:", json_particion$id_dataset))
-      print("Starting upload..")
+      message(paste("Dataset created succesfully, id:", json_particion$id_dataset))
+      message("Starting upload..")
       stop <- Sys.time()
       segundos <- as.integer(ceiling(stop - start))
       tam_pedazo <- as.integer(round((600 / segundos), digits = 0))
@@ -61,10 +67,10 @@ create_dataset <<- function(json_parametros, url) {
         #Imprimir avance
         avance <- round(((i + tam_pedazo) / n_filas) * 100, digits = 2)
         if (avance > 100) {
-          print("100%")
-          print("Wrapping Up..")
+          message("100%")
+          message("Wrapping Up..")
         } else {
-          print(paste(avance, "%"))
+          message(paste(avance, "%"))
           Sys.sleep(2)
         }
       }

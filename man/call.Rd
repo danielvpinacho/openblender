@@ -2,7 +2,7 @@
 % Please edit documentation in R/openblender.R
 \name{call}
 \alias{call}
-\title{Make HTTP request to \href{http://openblender.io}{openblender.io} service}
+\title{Make HTTP request to \href{http://openblender.io}{openblender.io} services}
 \usage{
 call(action, parameters)
 }
@@ -12,45 +12,49 @@ call(action, parameters)
 \item{parameters}{Request options}
 }
 \value{
-The OpenBlender service response, which depends on the action and parameters provided.
+A list that includes the new dataset id in case you create one, success/error message when you insert observations or the list of observations requested.
 }
 \description{
-Function made to call OpenBlender API services.
+Call 'OpenBlender' API services.
 }
 \examples{
-##CREATE A DATASET
+\dontrun{
+#CREATE DATASET
 df <- read.csv(file = "/path/to/your/data.csv", header = TRUE, sep = ",")
 action <- "API_createDataset"
 parameters <- list(
-token = "YOUR_TOKEN",
-id_user = "YOUR_USER_ID",
-name = "dataset name",
-descriptipon = "Provide a description here",
+token = "YOUR TOKEN",
+id_user = "YOUR USER ID",
+name = "Assign a name",
+descriptipon = "Set a description",
 visibility = "public",
 tags = list("topic", "tag"),
-insert_observations = "on",
+insert_observations = "off",# set "on" if you want include the observations
 dataframe = df
 )
-response <- openblender::call(action, parameters)
-
-##INSERT OBSERVATIONS
+call(action, parameters)
+#INSERT OBSERVATIONS
 df <- read.csv(file = "/path/to/your/data.csv", header = TRUE, sep = ",")
 action <- "API_insertObservations"
 parameters <- list(
-token = "YOUR_TOKEN",
-id_user = "YOUR_USER_ID",
-id_dataset = "DATASET_ID",
+token = "YOUR TOKEN",
+id_user = "YOUR USER ID",
+id_dataset = "DATASET ID",
 notification = "on",
 observations = df
 )
-response <- openblender::call(action, parameters)
+call(action, parameters)
 
-##GET OBSERVATIONS
+#GET OBSERVATIONS
 action <- "API_getObservationsFromDataset"
 parameters <- list(
-token = "YOUR_TOKEN",
-id_user = "YOUR_USER_ID",
-id_dataset = "DATASET_ID"
+token = "YOUR TOKEN",
+id_user = "YOUR USER ID",
+id_dataset = "DATASET ID"
 )
-response <- openblender::call(action, parameters)
+call(action, parameters)
+}
+}
+\seealso{
+To see more details go to \href{http://openblender.io}{openblender.io}
 }

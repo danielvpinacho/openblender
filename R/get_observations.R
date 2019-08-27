@@ -1,4 +1,10 @@
-get_observations <<- function(json_parametros, url) {
+#'@title Request to the API, depending on the action provided
+#'@description Prepare the data to send it 'OpenBlender' API. This function is not used by users.
+#'@param json_parametros Request parameters
+#'@param url Url selected
+#'@return List of observations obtained with \link{dameRespuestaLlamado}.
+#'@keywords internal
+get_observations <- function(json_parametros, url) {
   action <- "API_getSampleObservationsFromDataset"
   start <- Sys.time()
   if (hasName(json_parametros, "test_call") && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
@@ -7,17 +13,15 @@ get_observations <<- function(json_parametros, url) {
     test_call <- FALSE
   }
   if (test_call == 1) {
-    print("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
+    message("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
     data <- list(action = action, json = json_parametros)
     respuesta <- dameRespuestaLlamado(url, data)
-    print(respuesta)
     df_resp <- respuesta$sample
-    head(df_resp)
     t_universo <- 0
   } else {
     json_parametros$tamano_bin <- 50
     json_parametros$skip <- 0
-    print("Downloading...")
+    message("Downloading...")
     data <- list(action = action, json = json_parametros)
     respuesta <- dameRespuestaLlamado(url, data)
     t_universo <- respuesta$universe_size
@@ -42,9 +46,9 @@ get_observations <<- function(json_parametros, url) {
       }
       avance <- round(((i) / nums_pedazos) * 100, digits = 2)
       if (avance >= 100) {
-        print(paste(avance, "% completed."))
+        message(paste(avance, "% completed."))
       } else {
-        print(paste(avance, "%"))
+        message(paste(avance, "%"))
       }
     }
     if (hasName(json_parametros, "sample_size")) {

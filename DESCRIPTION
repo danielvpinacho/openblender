@@ -1,14 +1,16 @@
 Package: openblender
 Type: Package
-Title: Request www.openblender.io API services
+Title: Request <https://openblender.io> API Services
 Version: 0.1.0
-Author: Daniel V. Pinacho
-Maintainer: Daniel V. Pinacho <danielvpinacho@gmail.com>
-Description: Interface to make HTTP requests to OpenBlender API services. Go to https://openblender.io for more information.
+Authors@R: c(
+    person("Open Blender", "Inc.", email = "kate@openblender.io", role = "cph"),
+    person("Daniel V.", "Pinacho", email = "danielvpinacho@gmail.com", role = c("aut", "cre")))
+Description: Interface to make HTTP requests to 'OpenBlender' API services. Go to <https://openblender.io> for more information.
 Depends:
   R (>= 3.4.4),
   httr (>= 1.4.1),
-  jsonlite (>= 1.6)
+  jsonlite (>= 1.6),
+  xml2 (>= 1.2.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

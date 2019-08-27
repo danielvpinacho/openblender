@@ -1,4 +1,10 @@
-insert_observations <<- function(json_parametros, url) {
+#'@title Request to the API, depending on the action provided
+#'@description Prepare the data to send it 'OpenBlender' API. This function is not used by users.
+#'@param json_parametros Request parameters that contains the observations
+#'@param url Url selected
+#'@return Data obtained with \link{dameRespuestaLlamado}. A success or error message.
+#'@keywords internal
+insert_observations <- function(json_parametros, url) {
   action <- "API_insertObservationsFromDataFrame"
   if (hasName(json_parametros, "test_call") && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
     test_call <- 1
@@ -6,7 +12,7 @@ insert_observations <<- function(json_parametros, url) {
     test_call <- FALSE
   }
   if (test_call == 1) {
-    print("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
+    message("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
   }
   if (hasName(json_parametros, "dataframe")) {
     nom_obs <- "dataframe"
@@ -18,12 +24,11 @@ insert_observations <<- function(json_parametros, url) {
     return(obj$msj)
   }
   n_filas <- nrow(obj$df_nuevo)
-  print(head(obj$df_nuevo))
   tam_pedazo_ini <- 1000
   json_particion <- json_parametros
   if (n_filas > tam_pedazo_ini) {
-    print("Uploading...")
-    print("0%")
+    message("Uploading...")
+    message("0%")
     start <- Sys.time()
     json_particion[nom_obs] <- toJSON(obj$df_nuevo[1:tam_pedazo_ini, ], dataframe = "columns")
     data <- list(action = action, json = json_particion)
@@ -43,10 +48,10 @@ insert_observations <<- function(json_parametros, url) {
       #Imprimir avance
       avance <- round(((i + tam_pedazo) / n_filas) * 100, digits = 2)
       if (avance >= 100) {
-        print("100%")
-        print("Wrapping Up..")
+        message("100%")
+        message("Wrapping Up..")
       } else {
-        print(paste(avance, "%"))
+        message(paste(avance, "%"))
         Sys.sleep(2)
       }
     }
