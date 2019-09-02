@@ -7,7 +7,7 @@ Authors@R: c(
     person("Daniel V.", "Pinacho", email = "danielvpinacho@gmail.com", role = c("aut", "cre")))
 Description: Interface to make HTTP requests to 'OpenBlender' API services. Go to <https://openblender.io> for more information.
 Depends:
-  R (>= 3.4.4),
+  R (>= 3.2.0),
   httr (>= 1.4.1),
   jsonlite (>= 1.6),
   xml2 (>= 1.2.2)

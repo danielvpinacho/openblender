@@ -6,7 +6,7 @@
 #'@keywords internal
 insert_observations <- function(json_parametros, url) {
   action <- "API_insertObservationsFromDataFrame"
-  if (hasName(json_parametros, "test_call") && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
+  if ("test_call" %in% attributes(json_parametros)$names && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
     test_call <- 1
   } else {
     test_call <- FALSE
@@ -14,7 +14,7 @@ insert_observations <- function(json_parametros, url) {
   if (test_call == 1) {
     message("This is a TEST CALL, set \"test_call\" : \"off\" or remove to execute service.")
   }
-  if (hasName(json_parametros, "dataframe")) {
+  if ("dataframe" %in% attributes(json_parametros)$names) {
     nom_obs <- "dataframe"
   } else {
     nom_obs <- "observations"

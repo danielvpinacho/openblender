@@ -6,7 +6,7 @@
 #'@keywords internal
 create_dataset <- function(json_parametros, url) {
   action <- "API_createDataset"
-  if (hasName(json_parametros, "dataframe")) {
+  if ("dataframe" %in% attributes(json_parametros)$names) {
     nom_obs <- "dataframe"
   } else {
     nom_obs <- "observations"
@@ -19,14 +19,14 @@ create_dataset <- function(json_parametros, url) {
   tam_pedazo_ini <- 1000
   insert_observations <- TRUE
   json_particion <- json_parametros
-  if (hasName(json_parametros, "insert_observations")) {
+  if ("insert_observations" %in% attributes(json_parametros)$names) {
     if (json_parametros$insert_observations == 1 || json_parametros$insert_observations == "on") {
       insert_observations <- TRUE
     } else {
       insert_observations <- FALSE
     }
   }
-  if (hasName(json_parametros, "test_call") && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
+  if ("test_call" %in% attributes(json_parametros)$names && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
     test_call <- 1
   } else {
     test_call <- FALSE
@@ -44,7 +44,7 @@ create_dataset <- function(json_parametros, url) {
       json_particion_molde$insert_observations <- 0
       data <- list(action = action, json = json_particion_molde)
       respuesta <- dameRespuestaLlamado(url, data)
-      if (!hasName(respuesta, "id_dataset")) {
+      if (!"id_dataset" %in% attributes(respuesta)$names) {
         return(respuesta)
       }
       respuesta0 <- respuesta

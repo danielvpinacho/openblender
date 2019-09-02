@@ -43,7 +43,7 @@
 #'@seealso To see more details go to \href{http://openblender.io}{openblender.io}
 call <- function(action, parameters) {
   respuesta <- tryCatch({
-    if (hasName(parameters, "oblender") && parameters$oblender == 1) {
+    if ("oblender" %in% attributes(parameters)$names && parameters$oblender == 1) {
       url <- "http://3.16.237.62:8080/bronce"
     } else {
       url <- "http://52.8.156.139/oro/"
@@ -69,7 +69,7 @@ call <- function(action, parameters) {
     return(respuesta)
   },
   error = function(e) {
-    if (hasName(parameters, "oblender") && parameters$oblender == 1) {
+    if ("oblender" %in% attributes(parameters)$names && parameters$oblender == 1) {
       warning(paste("internal error", e))
     } else {
       warning(list(status = "internal error openblender", msg = e))

@@ -7,12 +7,12 @@
 dameRespuestaLlamado <- function(url, data) {
   data$json <- toJSON(data$json, auto_unbox = TRUE)
   resp <- POST(url = url, body = data, encode = "form")
-  if (hasName(content(resp), "status") && content(resp)$status == "error") {
+  if ("status" %in% attributes(content(resp))$names && content(resp)$status == "error") {
     message(content(resp))
     return(FALSE)
   } else {
     cont <- content(resp)
-    if (hasName(cont, "sample")) {
+    if ("sample" %in% attributes(cont)$names) {
       sample <- toJSON(cont$sample, dataframe = "rows")
       cont$sample <- fromJSON(sample)
     }
@@ -39,7 +39,7 @@ power_model <- function(json_parametros, url) {
 #'@keywords internal
 comprobarJSONaDF <- function(df_json) {
   obj <- list(valido = TRUE, msj = "Success", df_nuevo = NULL)
-  if (hasName(df_json, "dataframe")) {
+  if ("dataframe" %in% attributes(df_json)$names) {
     ind <- "dataframe"
   } else {
     ind <- "observations"

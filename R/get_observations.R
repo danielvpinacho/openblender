@@ -7,7 +7,7 @@
 get_observations <- function(json_parametros, url) {
   action <- "API_getSampleObservationsFromDataset"
   start <- Sys.time()
-  if (hasName(json_parametros, "test_call") && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
+  if ("test_call" %in% attributes(json_parametros)$names && (json_parametros$test_call == 1 || json_parametros$test_call == "on")) {
     test_call <- 1
   } else {
     test_call <- FALSE
@@ -51,7 +51,7 @@ get_observations <- function(json_parametros, url) {
         message(paste(avance, "%"))
       }
     }
-    if (hasName(json_parametros, "sample_size")) {
+    if ("sample_size" %in% attributes(json_parametros)$names) {
       if (as.integer(json_parametros$sample_size) < nrow(df_resp)) {
         df_resp <- df_resp[-sample(nrow(df_resp), (nrow(df_resp) - as.integer(json_parametros$sample_size))), ]
       }
