@@ -1,18 +1,17 @@
 # # TESTING #
 # ############################################################
 # ######################Create Dataset########################
-# df <- read.csv(file = "climas2018.csv", header = TRUE, sep = ",")
-# head(df)
-# nrow(df)
+#df <- read.csv(file = "climas2018.csv", header = TRUE, sep = ",")
+# df <- as.data.frame(list("FEATURE_1" = c("VALUE_1", "VALUE_2"), "FEATURE_2" = c("VALUE_3", "VALUE_4")))
 # action <- "API_createDataset"
 # parameters <- list(
 #   token = "1AKnDhP09wa2yGRia5z1SGTxAUQAiV",
 #   id_user = "5d07bed33e59b27a93e43be8",
-#   name = "climas2018",
+#   name = "df_from_R_object",
 #   descriptipon = "testing R library for OpenBlender",
 #   visibility = "public",
 #   tags = list("weather", "climate"),
-#   insert_observations = "off",
+#   insert_observations = "on",
 #   dataframe = df
 # )
 # new_df <- openblender::call(action, parameters)
